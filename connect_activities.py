@@ -52,18 +52,14 @@ def deallocate_prepared_sql(db_config, prepared_name):
 load_dotenv()
 
 dbconfig = {
-    'dbname': 'casaos',
+    'dbname': 'strava',
     'user': os.getenv("DB_USER"),
     'password': os.getenv("DB_PASSWORD"),
-    'host': '192.168.1.45',
-    'port': '5432'
+    'host': '',
 }
 
 prepare_insert = """
-INSERT INTO activities (
-    id, name, distance, moving_time, elapsed_time, total_elevation_gain, 
-    elev_high, elev_low, avg_heartrate, gear_id, type, sport_type, start_date
-) VALUES (
+INSERT INTO activities VALUES (
     1, 'Morning Run', 5000.0, 1800.0, 2000.0, 50.0, 
     150.0, 100.0, 140.0, 'gear123', 'Run', 'Road Running', '2024-06-14'
 );
@@ -71,6 +67,10 @@ INSERT INTO activities (
 
 prepare_select = """
 SELECT * FROM activities;
+"""
+
+prepare_delete = """
+DELETE FROM activities WHERE id = 1;
 """
 
 prepared_statement = prepare_sql_statement(prepare_select)
